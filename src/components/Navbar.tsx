@@ -2,7 +2,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { MapPin, AlertTriangle, MessageCircle, Bell, Info } from 'lucide-react';
+import { MapPin, AlertTriangle, MessageCircle, Bell, Info, MessageSquare } from 'lucide-react';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -47,6 +47,15 @@ const Navbar = () => {
         >
           <Bell className="h-5 w-5" />
           <span className="text-xs mt-1">Alerts</span>
+        </Button>
+        
+        <Button 
+          variant="ghost"
+          className={`bottom-tab ${isActive('/chatbot') ? 'text-transit-blue' : 'text-transit-gray'}`} 
+          onClick={() => navigate('/chatbot')}
+        >
+          <MessageSquare className="h-5 w-5" />
+          <span className="text-xs mt-1">Chatbot</span>
         </Button>
       </div>
     </div>
