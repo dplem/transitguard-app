@@ -294,6 +294,15 @@ export const getStationById = (id: string): Station | undefined => {
   return allTransitPoints.find(station => station.id === id);
 };
 
+export const getStationByName = (name: string): Station | undefined => {
+  const normalizedInput = name.trim().toLowerCase();
+
+  return allTransitPoints.find(station => {
+    const normalizedStation = station.name.trim().toLowerCase();
+    return normalizedStation === normalizedInput || normalizedStation.includes(normalizedInput);
+  });
+};
+
 export const getIncidentsByStationId = (stationId: string): Incident[] => {
   return incidents.filter(incident => incident.stationId === stationId);
 };

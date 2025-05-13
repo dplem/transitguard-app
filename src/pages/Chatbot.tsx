@@ -1,9 +1,10 @@
-
 import React, { useState } from 'react';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { MessageSquare, Send } from 'lucide-react';
+import { Send } from 'lucide-react';
+import { getStationByName, getIncidentsByStationId } from '@/utils/safetyData';
+
 
 const Chatbot = () => {
   const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>([
@@ -11,26 +12,57 @@ const Chatbot = () => {
   ]);
   const [input, setInput] = useState('');
 
+  //Keyword-based response logic
+  //Simple keyword matching for demo purposes, can be changed to a more sophisticated NLP model that also links station info for stats etc.
+  const getBotResponse = (userInput: string): string => {
+    const input = userInput.toLowerCase();
+  
+    // Try to extract station name from phrases like "Garfield", "show me Garfield", etc.
+    const words = userInput.split(/\s+/);
+    const possibleStation = words.find(word => getStationByName(word));
+  
+    // If user mentions a valid station name, provide detailed safety info
+    if (possibleStation) {
+      const station = getStationByName(possibleStation);
+      if (station) {
+        const incidents = getIncidentsByStationId(station.id);
+        return `${station.name} is a ${station.type} station.\n` +
+               `Safety Level: ${station.safetyLevel.toUpperCase()}\n` +
+               `Prediction: ${station.prediction}\n` +
+               `Recent Incidents: ${incidents.length}`;
+      }
+    }
+  
+    // Fallback keywords and responses
+    if (input.includes("report")) {
+      return "You can report an incident by going to the Report page or describing it here.";
+    } else if (input.includes("safe") || input.includes("safety")) {
+      return "Downtown stations are generally safest during weekday mornings. Would you like stats for a specific station?";
+    } else if (input.includes("statistics") || input.includes("data")) {
+      return "Sure, I can show you recent safety stats. Which station or line are you interested in?";
+    } else if (input.includes("station")) {
+      return "Please specify which station, and I can provide its safety record.";
+    } else if (input.includes("hello") || input.includes("hi") || input.includes("hey")) {
+      return "Hi there! I'm here to help with your public transit safety questions.";
+    } else if (input.includes("thank")) {
+      return "You're welcome! Let me know if there's anything else I can help with.";
+    } else {
+      return "I'm still learning — could you ask that a different way or be more specific?";
+    }
+  };
+  
+
   const handleSendMessage = () => {
     if (input.trim() === '') return;
-    
-    // Add user message
-    setMessages([...messages, { text: input, isUser: true }]);
-    
-    // Simulate bot response
+
+    const userMessage = { text: input, isUser: true };
+    setMessages(prev => [...prev, userMessage]);
+
     setTimeout(() => {
-      const botResponses = [
-        "I can help you find information about safe transit routes.",
-        "Would you like to see safety statistics for specific stations?",
-        "I can show you safety predictions for your commute.",
-        "Need to report an incident? I can help you with that.",
-        "The safest time to travel through downtown stations is typically between 7am-10am."
-      ];
-      
-      const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
-      setMessages(prev => [...prev, { text: randomResponse, isUser: false }]);
-    }, 1000);
-    
+      const botReply = getBotResponse(input);
+      setMessages(prev => [...prev, { text: botReply, isUser: false }]);
+    }, 500);
+
     setInput('');
   };
 
@@ -55,7 +87,7 @@ const Chatbot = () => {
             </div>
           ))}
         </div>
-        
+
         <div className="border-t p-4 bg-white">
           <div className="flex gap-2">
             <Input
