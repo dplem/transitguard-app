@@ -1,39 +1,58 @@
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Car } from 'lucide-react';
-import rawTrafficData from '../../public/data/traffic_crash_daily_totals_july_2024.csv';
 import { parseCSV } from '@/utils/csvParser';
 import { TrafficCrashEntry } from '@/types/csv';
 
 const TrafficCrashes = () => {
+  const [trafficData, setTrafficData] = useState<TrafficCrashEntry[]>([]);
+
   useEffect(() => {
-    console.log("Traffic data raw type:", typeof rawTrafficData);
-    if (typeof rawTrafficData === 'string') {
-      console.log("Traffic data raw sample:", rawTrafficData.substring(0, 100));
-    } else {
-      console.log("Traffic data is not a string:", rawTrafficData);
-    }
+    const fetchTrafficData = async () => {
+      try {
+        const response = await fetch('/data/traffic_crash_daily_totals_july_2024.csv');
+        const csvText = await response.text();
+        const parsedData = parseCSV<TrafficCrashEntry>(csvText);
+        setTrafficData(parsedData);
+      } catch (error) {
+        console.error('Error fetching traffic data:', error);
+      }
+    };
+
+    fetchTrafficData();
   }, []);
 
-  // Parse the CSV data
-  const trafficData = parseCSV<TrafficCrashEntry>(rawTrafficData);
-  
-  console.log("Traffic data parsed:", trafficData.length, "entries");
-  console.log("Traffic data sample:", trafficData[0]);
-  
+  if (trafficData.length === 0) {
+    return (
+      <Card className="p-4 border-t-4 border-t-yellow-400">
+        <div className="flex justify-between items-center mb-3">
+          <h2 className="font-bold">Traffic Crashes</h2>
+          <Car className="text-yellow-400 h-5 w-5" />
+        </div>
+        <p className="text-gray-600">Loading traffic data...</p>
+      </Card>
+    );
+  }
+
   // Find data for July 13th
-  const todaysData = trafficData.find(day => {
-    console.log("Comparing traffic date:", day.DATE, "with target date: 2024-07-13");
-    return day.DATE === '2024-07-13';
-  });
+  const todaysData = trafficData.find(day => day.DATE === '2024-07-13');
   
-  console.log("Today's traffic data:", todaysData);
-  
-  const totalCrashes = todaysData?.TOTAL_CRASHES || "0";
-  const fatalities = todaysData?.TOTAL_FATALITIES || "0";
-  const incapacitatingInjuries = todaysData?.TOTAL_INCAPACITATING_INJURIES || "0";
-  const nonIncapacitatingInjuries = todaysData?.TOTAL_NON_INCAPACITATING_INJURIES || "0";
+  if (!todaysData) {
+    return (
+      <Card className="p-4 border-t-4 border-t-yellow-400">
+        <div className="flex justify-between items-center mb-3">
+          <h2 className="font-bold">Traffic Crashes</h2>
+          <Car className="text-yellow-400 h-5 w-5" />
+        </div>
+        <p className="text-gray-600">No data available for July 13, 2024</p>
+      </Card>
+    );
+  }
+
+  const totalCrashes = todaysData.TOTAL_CRASHES || "0";
+  const fatalities = todaysData.TOTAL_FATALITIES || "0";
+  const incapacitatingInjuries = todaysData.TOTAL_INCAPACITATING_INJURIES || "0";
+  const nonIncapacitatingInjuries = todaysData.TOTAL_NON_INCAPACITATING_INJURIES || "0";
 
   return (
     <Card className="p-4 border-t-4 border-t-yellow-400">

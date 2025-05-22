@@ -1,26 +1,26 @@
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import rawLineData from '../../public/data/line_counts.csv';
 import { parseCSV } from '@/utils/csvParser';
 import { LineCountEntry } from '@/types/csv';
 
 const LineStatus = () => {
-  useEffect(() => {
-    console.log("Line data raw type:", typeof rawLineData);
-    if (typeof rawLineData === 'string') {
-      console.log("Line data raw sample:", rawLineData.substring(0, 100));
-    } else {
-      console.log("Line data is not a string:", rawLineData);
-    }
-  }, []);
+  const [lineData, setLineData] = useState<LineCountEntry[]>([]);
 
-  // Parse the CSV data
-  const lineData = parseCSV<LineCountEntry>(rawLineData);
-  
-  console.log("Line data parsed:", lineData.length, "entries");
-  console.log("Line data sample:", lineData[0]);
+  useEffect(() => {
+    const fetchLineData = async () => {
+      try {
+        const response = await fetch('/data/line_counts.csv');
+        const csvText = await response.text();
+        const parsedData = parseCSV<LineCountEntry>(csvText);
+        setLineData(parsedData);
+      } catch (error) {
+        console.error('Error fetching line data:', error);
+      }
+    };
+
+    fetchLineData();
+  }, []);
 
   // Map for line colors
   const lineColors = {
@@ -42,6 +42,20 @@ const LineStatus = () => {
     'Low': 'bg-green-500 hover:bg-green-600'
   };
 
+  if (lineData.length === 0) {
+    return (
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-blue-600">Line Status</CardTitle>
+          <p className="text-sm text-gray-500">Current safety status by transit line</p>
+        </CardHeader>
+        <CardContent>
+          <p className="text-gray-600">Loading line data...</p>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card>
       <CardHeader className="pb-2">
@@ -50,7 +64,7 @@ const LineStatus = () => {
       </CardHeader>
       <CardContent>
         <div className="space-y-2">
-          {lineData && lineData.map((line, index) => (
+          {lineData.map((line, index) => (
             <div key={index} className="flex items-center justify-between py-2 border-b last:border-0">
               <div className="flex items-center">
                 <div className={`w-4 h-8 rounded mr-3 ${lineColors[line.line_code] || 'bg-gray-500'}`}></div>
