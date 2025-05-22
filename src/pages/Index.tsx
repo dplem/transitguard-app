@@ -1,38 +1,56 @@
 
 import React from 'react';
 import Layout from '@/components/Layout';
-import SafetyIndex from '@/components/SafetyIndex';
-import CrimeIncidents from '@/components/CrimeIncidents';
-import TrafficCrashes from '@/components/TrafficCrashes';
-import LineStatus from '@/components/LineStatus';
-import { Card } from '@/components/ui/card';
-import { AlertTriangle, MessageCircle } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import SafetyMap from '@/components/SafetyMap';
+import SafetyPredictions from '@/components/SafetyPredictions';
+import { stations, allTransitPoints } from '@/utils/safetyData';
+import { MapPin, AlertTriangle, MessageCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Index = () => {
   const navigate = useNavigate();
-  
+  const safeStations = allTransitPoints.filter(s => s.safetyLevel === 'safe').length;
+  const warningStations = allTransitPoints.filter(s => s.safetyLevel === 'warning').length;
+  const dangerStations = allTransitPoints.filter(s => s.safetyLevel === 'danger').length;
+
   return (
     <Layout title="TransitGuard">
-      <div className="space-y-4">
-        <h3 className="text-xl font-bold text-blue-600 mt-2 mb-4">Safety Overview</h3>
-        
-        {/* Safety Index */}
-        <SafetyIndex />
-        
-        <div className="grid grid-cols-2 gap-4">
-          {/* Crime Incidents */}
-          <CrimeIncidents />
-          
-          {/* Traffic Crashes */}
-          <TrafficCrashes />
+      <div className="space-y-6">
+        <div className="bg-transit-blue text-white p-4 rounded-lg">
+          <h1 className="text-xl font-bold mb-2">Real-Time Transit Safety</h1>
+          <p className="text-sm opacity-90 mb-4">
+            Stay informed about safety conditions across Chicago's public transportation network
+          </p>
+          <div className="grid grid-cols-3 gap-2 mb-2">
+            <div className="bg-white/10 rounded p-2 text-center">
+              <div className="text-lg font-bold">{safeStations}</div>
+              <div className="text-xs">Safe</div>
+            </div>
+            <div className="bg-white/10 rounded p-2 text-center">
+              <div className="text-lg font-bold">{warningStations}</div>
+              <div className="text-xs">Caution</div>
+            </div>
+            <div className="bg-white/10 rounded p-2 text-center">
+              <div className="text-lg font-bold">{dangerStations}</div>
+              <div className="text-xs">High Risk</div>
+            </div>
+          </div>
+          <Button 
+            variant="secondary" 
+            className="w-full text-transit-blue"
+            onClick={() => navigate('/map')}
+          >
+            <MapPin className="mr-2 h-4 w-4" />
+            View Safety Map
+          </Button>
         </div>
+
+        <SafetyMap />
         
-        {/* Line Status */}
-        <LineStatus />
-        
-        {/* Quick Actions */}
+        <SafetyPredictions />
+
         <Card className="p-4">
           <h2 className="mb-3">Quick Actions</h2>
           <div className="grid grid-cols-2 gap-3">
