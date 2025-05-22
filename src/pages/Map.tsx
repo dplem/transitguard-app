@@ -5,6 +5,7 @@ import { allTransitPoints, Station } from '@/utils/safetyData';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import StationInfo from '@/components/StationInfo';
+import SafetyMap from '@/components/SafetyMap';
 import { MapPin, Search } from 'lucide-react';
 
 const Map = () => {
@@ -33,27 +34,7 @@ const Map = () => {
             />
           </div>
           
-          <div className="w-full rounded-lg bg-gray-100 overflow-hidden mb-4">
-            <div className="p-6 flex flex-col items-center justify-center h-64">
-              <div className="text-center mb-6">
-                <h3 className="text-lg font-semibold mb-2">Safety Map</h3>
-                <p className="text-sm text-gray-500">
-                  Interactive map view available in the full app
-                </p>
-              </div>
-              
-              <div className="flex space-x-2 mb-4">
-                <div className="bg-safety-safe w-3 h-3 rounded-full"></div>
-                <div className="bg-safety-warning w-3 h-3 rounded-full"></div>
-                <div className="bg-safety-danger w-3 h-3 rounded-full"></div>
-              </div>
-              
-              <Button variant="outline" size="sm">
-                <MapPin className="mr-2 h-4 w-4" />
-                Use My Location
-              </Button>
-            </div>
-          </div>
+          <SafetyMap />
           
           {searchQuery && (
             <div className="mb-4">
