@@ -17,7 +17,7 @@ const TrafficCrashes = () => {
   }, []);
 
   // Parse the CSV data
-  const trafficData = parseCSV<TrafficCrashEntry>(rawTrafficData as unknown as string);
+  const trafficData = parseCSV<TrafficCrashEntry>(rawTrafficData);
   
   console.log("Traffic data parsed:", trafficData.length, "entries");
   console.log("Traffic data sample:", trafficData[0]);

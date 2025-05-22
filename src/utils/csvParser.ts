@@ -4,10 +4,11 @@
  * @param csvContent The CSV content as a string
  * @returns Array of objects where each object represents a row in the CSV
  */
-export const parseCSV = <T>(csvContent: string): T[] => {
+export const parseCSV = <T>(csvContent: any): T[] => {
   console.log("CSV content type:", typeof csvContent);
   
-  if (!csvContent || typeof csvContent !== 'string') {
+  // If csvContent is a file path or not a string, return empty array
+  if (!csvContent || typeof csvContent !== 'string' || csvContent.startsWith('/')) {
     console.error("Invalid CSV content provided:", csvContent);
     return [] as T[];
   }

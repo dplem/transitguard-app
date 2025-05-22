@@ -17,7 +17,7 @@ const LineStatus = () => {
   }, []);
 
   // Parse the CSV data
-  const lineData = parseCSV<LineCountEntry>(rawLineData as unknown as string);
+  const lineData = parseCSV<LineCountEntry>(rawLineData);
   
   console.log("Line data parsed:", lineData.length, "entries");
   console.log("Line data sample:", lineData[0]);

@@ -17,7 +17,7 @@ const CrimeIncidents = () => {
   }, []);
 
   // Parse the CSV data
-  const crimeData = parseCSV<CrimeEntry>(rawCrimeData as unknown as string);
+  const crimeData = parseCSV<CrimeEntry>(rawCrimeData);
   
   console.log("Crime data parsed:", crimeData.length, "entries");
   

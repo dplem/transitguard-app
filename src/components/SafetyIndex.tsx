@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
@@ -18,7 +17,7 @@ const SafetyIndex = () => {
   }, []);
 
   // Parse the CSV data
-  const safetyData = parseCSV<SafetyIndexEntry>(rawSafetyData as unknown as string);
+  const safetyData = parseCSV<SafetyIndexEntry>(rawSafetyData);
   
   console.log("Safety data parsed:", safetyData.length, "entries");
   console.log("Safety data sample:", safetyData[0]);
