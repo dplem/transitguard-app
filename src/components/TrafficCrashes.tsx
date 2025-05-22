@@ -8,7 +8,7 @@ import { TrafficCrashEntry } from '@/types/csv';
 
 const TrafficCrashes = () => {
   // Parse the CSV data
-  const trafficData = parseCSV<TrafficCrashEntry>(rawTrafficData);
+  const trafficData = parseCSV<TrafficCrashEntry>(rawTrafficData as unknown as string);
   
   // Find data for July 13th
   const todaysData = trafficData.find(day => day.DATE === '2024-07-13');

@@ -8,7 +8,7 @@ import { CrimeEntry } from '@/types/csv';
 
 const CrimeIncidents = () => {
   // Parse the CSV data
-  const crimeData = parseCSV<CrimeEntry>(rawCrimeData);
+  const crimeData = parseCSV<CrimeEntry>(rawCrimeData as unknown as string);
   
   // Get today's date in format "2024-07-13"
   const today = "2024-07-13";

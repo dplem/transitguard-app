@@ -8,7 +8,7 @@ import { LineCountEntry } from '@/types/csv';
 
 const LineStatus = () => {
   // Parse the CSV data
-  const lineData = parseCSV<LineCountEntry>(rawLineData);
+  const lineData = parseCSV<LineCountEntry>(rawLineData as unknown as string);
 
   // Map for line colors
   const lineColors = {

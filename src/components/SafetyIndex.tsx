@@ -8,7 +8,7 @@ import { SafetyIndexEntry } from '@/types/csv';
 
 const SafetyIndex = () => {
   // Parse the CSV data
-  const safetyData = parseCSV<SafetyIndexEntry>(rawSafetyData);
+  const safetyData = parseCSV<SafetyIndexEntry>(rawSafetyData as unknown as string);
   
   // Get the latest safety index entry
   const latestEntry = safetyData[safetyData.length - 1];
