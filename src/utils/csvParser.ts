@@ -5,18 +5,27 @@
  * @returns Array of objects where each object represents a row in the CSV
  */
 export const parseCSV = <T>(csvContent: string): T[] => {
+  console.log("CSV content type:", typeof csvContent);
+  console.log("CSV content sample:", csvContent.substring(0, 100));
+  
   // Split the CSV content by newline characters
   const lines = csvContent.trim().split('\n');
+  
+  console.log("Number of lines:", lines.length);
+  console.log("Headers:", lines[0]);
   
   // Extract headers from the first line
   const headers = lines[0].split(',');
   
   // Parse the remaining lines into objects
-  return lines.slice(1).map(line => {
+  const result = lines.slice(1).map(line => {
     const values = line.split(',');
     return headers.reduce((obj, header, index) => {
-      obj[header as keyof T] = values[index] as unknown as T[keyof T];
+      obj[header.trim() as keyof T] = values[index] as unknown as T[keyof T];
       return obj;
     }, {} as T);
   });
+  
+  console.log("Parsed results sample:", result.slice(0, 2));
+  return result;
 };

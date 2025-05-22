@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { AlertTriangle } from 'lucide-react';
 import rawCrimeData from '../../public/data/july_2024_crime_summary.csv';
@@ -7,14 +7,26 @@ import { parseCSV } from '@/utils/csvParser';
 import { CrimeEntry } from '@/types/csv';
 
 const CrimeIncidents = () => {
+  useEffect(() => {
+    console.log("Crime data raw type:", typeof rawCrimeData);
+  }, []);
+
   // Parse the CSV data
   const crimeData = parseCSV<CrimeEntry>(rawCrimeData as unknown as string);
+  
+  console.log("Crime data parsed:", crimeData.length, "entries");
   
   // Get today's date in format "2024-07-13"
   const today = "2024-07-13";
   
   // Filter crimes for today
-  const todaysCrimes = crimeData.filter(crime => crime.date === today);
+  const todaysCrimes = crimeData.filter(crime => {
+    console.log("Comparing crime date:", crime.date, "with today:", today);
+    return crime.date === today;
+  });
+  
+  console.log("Today's crimes:", todaysCrimes);
+  
   const totalIncidents = todaysCrimes.reduce((acc, curr) => acc + parseInt(curr.count), 0);
   
   // Get yesterday's data to calculate percentage change

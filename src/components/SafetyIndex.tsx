@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import rawSafetyData from '../../public/data/safety_index.csv';
@@ -7,15 +7,27 @@ import { parseCSV } from '@/utils/csvParser';
 import { SafetyIndexEntry } from '@/types/csv';
 
 const SafetyIndex = () => {
+  useEffect(() => {
+    console.log("Safety data raw type:", typeof rawSafetyData);
+    console.log("Safety data raw sample:", rawSafetyData.substring && rawSafetyData.substring(0, 100));
+  }, []);
+
   // Parse the CSV data
   const safetyData = parseCSV<SafetyIndexEntry>(rawSafetyData as unknown as string);
   
+  console.log("Safety data parsed:", safetyData.length, "entries");
+  console.log("Safety data sample:", safetyData[0]);
+  
   // Get the latest safety index entry
   const latestEntry = safetyData[safetyData.length - 1];
+  console.log("Latest safety entry:", latestEntry);
+  
   const safetyIndex = parseInt(latestEntry?.safety_index || "0");
   
   // Calculate improvement
   const previousEntry = safetyData[safetyData.length - 8]; // Get data from 7 days before
+  console.log("Previous safety entry:", previousEntry);
+  
   const previousIndex = parseInt(previousEntry?.safety_index || "0");
   const improvement = previousIndex ? ((safetyIndex - previousIndex) / previousIndex * 100).toFixed(1) : "0";
 
