@@ -44,27 +44,18 @@ const SafetyMap = () => {
           />
         </div>
         
-        <div className="flex flex-col gap-2 w-full max-w-xs mt-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <span className="w-3 h-3 rounded-full bg-safety-safe mr-2"></span>
-              <span className="text-sm">Safe Areas</span>
-            </div>
-            <span className="text-sm">{allTransitPoints.filter(s => s.safetyLevel === 'safe').length} Stations</span>
+        <div className="flex items-center justify-center gap-4 mt-4 px-2 w-full">
+          <div className="flex items-center">
+            <span className="w-3 h-3 rounded-full bg-safety-safe mr-2"></span>
+            <span className="text-sm">Safe Areas</span>
           </div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <span className="w-3 h-3 rounded-full bg-safety-warning mr-2"></span>
-              <span className="text-sm">Caution Areas</span>
-            </div>
-            <span className="text-sm">{allTransitPoints.filter(s => s.safetyLevel === 'warning').length} Stations</span>
+          <div className="flex items-center">
+            <span className="w-3 h-3 rounded-full bg-safety-warning mr-2"></span>
+            <span className="text-sm">Caution Areas</span>
           </div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <span className="w-3 h-3 rounded-full bg-safety-danger mr-2"></span>
-              <span className="text-sm">High Risk Areas</span>
-            </div>
-            <span className="text-sm">{allTransitPoints.filter(s => s.safetyLevel === 'danger').length} Stations</span>
+          <div className="flex items-center">
+            <span className="w-3 h-3 rounded-full bg-safety-danger mr-2"></span>
+            <span className="text-sm">High Risk Areas</span>
           </div>
         </div>
       </div>
