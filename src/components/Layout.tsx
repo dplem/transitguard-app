@@ -27,12 +27,14 @@ const Layout: React.FC<LayoutProps> = ({
               ←
             </button>
           )}
-          <img 
-            src="/logo/transitguard_logo.png" 
-            alt="TransitGuard Logo" 
-            className="h-6 mr-2" 
-          />
-          <h1 className="text-xl font-bold text-center flex-1">{title}</h1>
+          <div className="flex items-center justify-center flex-1">
+            <img 
+              src="/logo/transitguard_logo.png" 
+              alt="TransitGuard Logo" 
+              className="h-6 mr-2" 
+            />
+            <h1 className="text-xl font-bold">{title}</h1>
+          </div>
         </div>
       )}
       <div className="page-container p-4">
