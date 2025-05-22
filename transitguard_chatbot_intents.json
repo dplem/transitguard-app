@@ -52,23 +52,6 @@
       ]
     },
     {
-      "tag": "environmental_context",
-      "patterns": [
-        "Are there any traffic accidents affecting CTA bus routes right now?",
-        "Which streets have the most crashes along CTA bus routes?",
-        "Have any recent outages or graffiti reports been filed at this stop?",
-        "How does streetlight outage impact crime risk at night?",
-        "Do stops with graffiti reports tend to have higher crime rates?"
-      ],
-      "responses": [
-        "Crashes on Western Ave and Michigan Ave may affect buses today.",
-        "Western Avenue leads all streets in crash reports: 23,314 from 2017\u20132024.",
-        "Yes, this stop has been flagged with recent graffiti and lighting outage reports.",
-        "Outages increase nighttime crime risk by 15\u201325%, especially for battery and theft.",
-        "Yes, high-graffiti stops often overlap with high-incident locations."
-      ]
-    },
-    {
       "tag": "predictive_forecast",
       "patterns": [
         "What\u2019s the predicted crime level at [station] tomorrow?",
