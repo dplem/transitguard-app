@@ -1,0 +1,121 @@
+{
+  "intents": [
+    {
+      "tag": "real_time_risk",
+      "patterns": [
+        "Is this stop considered high-risk right now?",
+        "What\u2019s the current safety status at [station/bus stop name]?",
+        "Are there any incidents reported near me in the last 24 hours?",
+        "Which CTA lines are experiencing the most safety alerts today?",
+        "What\u2019s the safest route between [origin] and [destination] right now?"
+      ],
+      "responses": [
+        "This stop is currently flagged as medium-to-high risk based on incident frequency and time of day.",
+        "Lake/State station is a current hotspot. Most incidents occur during weekday rush hours (3\u20136 PM).",
+        "There have been 14 CTA-related incidents in the past 24 hours, mostly at downtown platforms.",
+        "Red and Blue Lines are reporting the highest number of alerts today.",
+        "Avoid downtown transfers during rush hour; bus routes like 31st and 96 Lunt have lower per-rider risks."
+      ]
+    },
+    {
+      "tag": "historical_patterns",
+      "patterns": [
+        "Which CTA stations had the most crimes reported last month?",
+        "Show me the top 5 most dangerous L stations in 2024.",
+        "When do crimes typically peak on the CTA?",
+        "How do crime levels change on weekdays vs weekends?",
+        "Which months had the highest crime rates on the Red Line?"
+      ],
+      "responses": [
+        "Last month\u2019s top stations were Lake/State, Clark/Lake, and O\u2019Hare Airport.",
+        "In 2024, CTA TRAIN, PLATFORM, and STATION ranked highest in crime reports.",
+        "Crimes peak Tuesday\u2013Thursday, especially from 3 PM to 6 PM.",
+        "Weekdays have ~15% more crimes than weekends, with Friday being the most active.",
+        "January, March, and May show the highest crime volume on the Red Line."
+      ]
+    },
+    {
+      "tag": "location_specific_info",
+      "patterns": [
+        "What crimes have been reported at [station or stop] recently?",
+        "Is Ward 42 still the most dangerous area for CTA users?",
+        "How many assaults have been reported at [station] in the past year?",
+        "What\u2019s the crime rate for [bus route] per 100,000 riders?",
+        "Are there any recent incidents around [community area or ZIP]?"
+      ],
+      "responses": [
+        "Recent crimes at CTA BUS include 130 assaults, mostly during evening hours.",
+        "Yes, Ward 42 has the most incidents: 7,753 reported from 2014 to 2024.",
+        "CTA BUS had 130 assaults in the past year; CTA TRAIN had 74.",
+        "Routes like the 79th show higher-than-average crime rates per rider.",
+        "Community Area 32 (The Loop) remains the most incident-prone zone."
+      ]
+    },
+    {
+      "tag": "environmental_context",
+      "patterns": [
+        "Are there any traffic accidents affecting CTA bus routes right now?",
+        "Which streets have the most crashes along CTA bus routes?",
+        "Have any recent outages or graffiti reports been filed at this stop?",
+        "How does streetlight outage impact crime risk at night?",
+        "Do stops with graffiti reports tend to have higher crime rates?"
+      ],
+      "responses": [
+        "Crashes on Western Ave and Michigan Ave may affect buses today.",
+        "Western Avenue leads all streets in crash reports: 23,314 from 2017\u20132024.",
+        "Yes, this stop has been flagged with recent graffiti and lighting outage reports.",
+        "Outages increase nighttime crime risk by 15\u201325%, especially for battery and theft.",
+        "Yes, high-graffiti stops often overlap with high-incident locations."
+      ]
+    },
+    {
+      "tag": "predictive_forecast",
+      "patterns": [
+        "What\u2019s the predicted crime level at [station] tomorrow?",
+        "Will crime increase this weekend across CTA?",
+        "Are violent crimes expected to spike this month?",
+        "When is the next likely high-risk day on the CTA?",
+        "What\u2019s the safest time to ride the train on Fridays?"
+      ],
+      "responses": [
+        "Tomorrow, Clark/Lake and Roosevelt are forecasted as moderate to high risk in the afternoon.",
+        "This weekend is expected to be average; weekday risks remain higher.",
+        "No major spike expected this month; trends remain stable.",
+        "Next Friday (May 17) is flagged as the next likely high-risk day.",
+        "Before 8 AM and after 9 PM are the safest times to ride on Fridays."
+      ]
+    },
+    {
+      "tag": "safety_protocols",
+      "patterns": [
+        "How can I report an incident I saw?",
+        "What should I do if I witness a crime on a train?",
+        "Will I get alerts if there\u2019s an incident near me?",
+        "How do CTA staff respond to safety alerts?",
+        "Can I sign up for text or API alerts from TransitGuard?"
+      ],
+      "responses": [
+        "Use the TransitGuard app or call the CTA hotline at 1-888-YOUR-CTA.",
+        "Move to safety, use the emergency intercom, and notify TransitGuard via the app.",
+        "Yes. Opt-in users receive alerts for nearby CTA incidents within a quarter-mile.",
+        "Alerts are dispatched in real-time. Response time averages 5\u20138 minutes.",
+        "Yes. You can opt in via app settings or request API access for integrations."
+      ]
+    },
+    {
+      "tag": "equity_and_accessibility",
+      "patterns": [
+        "Which community areas have the most CTA-related incidents?",
+        "Are underserved neighborhoods more affected by crime?",
+        "Which stations have high crime rates despite low ridership?",
+        "Is there any equity-focused safety planning in place?"
+      ],
+      "responses": [
+        "Top areas: Loop (9,272), Near North Side, and Rogers Park.",
+        "Yes. Underserved areas show high per-capita incidents and fewer patrols.",
+        "Stations like Ashland/63rd and Garfield show high risk despite low traffic.",
+        "TransitGuard recommends patrol scheduling and funding for high-risk zones."
+      ]
+    }
+  ]
+}
