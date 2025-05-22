@@ -20,10 +20,10 @@ const CrimeIncidents: React.FC = () => {
   const percentageChange = ((totalIncidents - yesterdayTotal) / yesterdayTotal * 100).toFixed(0);
   
   // Get battery count
-  const batteryCount = todaysCrimes.find(crime => crime.primary_type === "BATTERY")?.count || 0;
+  const batteryCount = todaysCrimes.find(crime => crime.primary_type === "BATTERY")?.count || "0";
   
   // Get robbery count
-  const robberyCount = todaysCrimes.find(crime => crime.primary_type === "ROBBERY")?.count || 0;
+  const robberyCount = todaysCrimes.find(crime => crime.primary_type === "ROBBERY")?.count || "0";
   
   // Calculate "other" count
   const otherCount = totalIncidents - parseInt(batteryCount) - parseInt(robberyCount);

@@ -8,10 +8,10 @@ const TrafficCrashes: React.FC = () => {
   // Find data for July 13th
   const todaysData = trafficData.find(day => day.DATE === '2024-07-13');
   
-  const totalCrashes = todaysData?.TOTAL_CRASHES || 0;
-  const fatalities = todaysData?.TOTAL_FATALITIES || 0;
-  const incapacitatingInjuries = todaysData?.TOTAL_INCAPACITATING_INJURIES || 0;
-  const nonIncapacitatingInjuries = todaysData?.TOTAL_NON_INCAPACITATING_INJURIES || 0;
+  const totalCrashes = todaysData?.TOTAL_CRASHES || "0";
+  const fatalities = todaysData?.TOTAL_FATALITIES || "0";
+  const incapacitatingInjuries = todaysData?.TOTAL_INCAPACITATING_INJURIES || "0";
+  const nonIncapacitatingInjuries = todaysData?.TOTAL_NON_INCAPACITATING_INJURIES || "0";
 
   return (
     <Card className="p-4 border-t-4 border-t-yellow-400">
