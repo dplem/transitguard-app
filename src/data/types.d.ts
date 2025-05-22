@@ -2,7 +2,7 @@
 declare module '@/data/safety_index.csv' {
   const data: {
     Date: string;
-    safety_index: number;
+    safety_index: string;
   }[];
   export default data;
 }

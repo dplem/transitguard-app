@@ -6,7 +6,7 @@ import { Car } from 'lucide-react';
 
 const TrafficCrashes: React.FC = () => {
   // Find data for July 13th
-  const todaysData = trafficData.find(day => day.DATE === '2024-07-13');
+  const todaysData = trafficData.find((day) => day.DATE === '2024-07-13');
   
   const totalCrashes = todaysData?.TOTAL_CRASHES || "0";
   const fatalities = todaysData?.TOTAL_FATALITIES || "0";
