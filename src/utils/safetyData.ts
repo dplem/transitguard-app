@@ -1,4 +1,3 @@
-
 export type SafetyLevel = 'safe' | 'warning' | 'danger';
 
 export interface Station {
@@ -265,7 +264,7 @@ export const alerts: SafetyAlert[] = [
     title: 'Increased Security',
     description: 'Additional security personnel deployed at Howard station due to recent incidents',
     stationId: '10',
-    timestamp: '2023-05-08T08:00:00',
+    timestamp: '2024-07-10T08:00:00',
     level: 'warning',
     isRead: false
   },
@@ -274,7 +273,7 @@ export const alerts: SafetyAlert[] = [
     title: 'Service Disruption',
     description: 'Red Line trains bypassing Garfield due to police activity',
     stationId: '5',
-    timestamp: '2023-05-08T15:30:00',
+    timestamp: '2024-07-12T15:30:00',
     level: 'danger',
     isRead: false
   },
@@ -283,7 +282,7 @@ export const alerts: SafetyAlert[] = [
     title: 'Community Outreach',
     description: 'CTA hosting safety awareness event at 95th/Dan Ryan station on Saturday',
     stationId: '3',
-    timestamp: '2023-05-07T09:00:00',
+    timestamp: '2024-07-08T09:00:00',
     level: 'safe',
     isRead: true
   }
