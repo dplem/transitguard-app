@@ -2,9 +2,14 @@
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import safetyData from '../../public/data/safety_index.csv';
+import rawSafetyData from '../../public/data/safety_index.csv';
+import { parseCSV } from '@/utils/csvParser';
+import { SafetyIndexEntry } from '@/types/csv';
 
 const SafetyIndex = () => {
+  // Parse the CSV data
+  const safetyData = parseCSV<SafetyIndexEntry>(rawSafetyData);
+  
   // Get the latest safety index entry
   const latestEntry = safetyData[safetyData.length - 1];
   const safetyIndex = parseInt(latestEntry?.safety_index || "0");

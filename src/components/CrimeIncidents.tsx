@@ -2,9 +2,14 @@
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { AlertTriangle } from 'lucide-react';
-import crimeData from '../../public/data/july_2024_crime_summary.csv';
+import rawCrimeData from '../../public/data/july_2024_crime_summary.csv';
+import { parseCSV } from '@/utils/csvParser';
+import { CrimeEntry } from '@/types/csv';
 
 const CrimeIncidents = () => {
+  // Parse the CSV data
+  const crimeData = parseCSV<CrimeEntry>(rawCrimeData);
+  
   // Get today's date in format "2024-07-13"
   const today = "2024-07-13";
   

@@ -2,9 +2,14 @@
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Car } from 'lucide-react';
-import trafficData from '../../public/data/traffic_crash_daily_totals_july_2024.csv';
+import rawTrafficData from '../../public/data/traffic_crash_daily_totals_july_2024.csv';
+import { parseCSV } from '@/utils/csvParser';
+import { TrafficCrashEntry } from '@/types/csv';
 
 const TrafficCrashes = () => {
+  // Parse the CSV data
+  const trafficData = parseCSV<TrafficCrashEntry>(rawTrafficData);
+  
   // Find data for July 13th
   const todaysData = trafficData.find(day => day.DATE === '2024-07-13');
   

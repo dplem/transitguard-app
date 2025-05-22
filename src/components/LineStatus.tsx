@@ -2,9 +2,14 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import lineData from '../../public/data/line_counts.csv';
+import rawLineData from '../../public/data/line_counts.csv';
+import { parseCSV } from '@/utils/csvParser';
+import { LineCountEntry } from '@/types/csv';
 
 const LineStatus = () => {
+  // Parse the CSV data
+  const lineData = parseCSV<LineCountEntry>(rawLineData);
+
   // Map for line colors
   const lineColors = {
     'Red Line': 'bg-red-600',
