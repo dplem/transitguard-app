@@ -9,6 +9,11 @@ import { TrafficCrashEntry } from '@/types/csv';
 const TrafficCrashes = () => {
   useEffect(() => {
     console.log("Traffic data raw type:", typeof rawTrafficData);
+    if (typeof rawTrafficData === 'string') {
+      console.log("Traffic data raw sample:", rawTrafficData.substring(0, 100));
+    } else {
+      console.log("Traffic data is not a string:", rawTrafficData);
+    }
   }, []);
 
   // Parse the CSV data

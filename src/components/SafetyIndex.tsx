@@ -9,7 +9,12 @@ import { SafetyIndexEntry } from '@/types/csv';
 const SafetyIndex = () => {
   useEffect(() => {
     console.log("Safety data raw type:", typeof rawSafetyData);
-    console.log("Safety data raw sample:", rawSafetyData.substring && rawSafetyData.substring(0, 100));
+    // Check if rawSafetyData is a string before trying to use substring
+    if (typeof rawSafetyData === 'string') {
+      console.log("Safety data raw sample:", rawSafetyData.substring(0, 100));
+    } else {
+      console.log("Safety data is not a string:", rawSafetyData);
+    }
   }, []);
 
   // Parse the CSV data

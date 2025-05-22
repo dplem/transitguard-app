@@ -9,6 +9,11 @@ import { CrimeEntry } from '@/types/csv';
 const CrimeIncidents = () => {
   useEffect(() => {
     console.log("Crime data raw type:", typeof rawCrimeData);
+    if (typeof rawCrimeData === 'string') {
+      console.log("Crime data raw sample:", rawCrimeData.substring(0, 100));
+    } else {
+      console.log("Crime data is not a string:", rawCrimeData);
+    }
   }, []);
 
   // Parse the CSV data

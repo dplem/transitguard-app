@@ -9,6 +9,11 @@ import { LineCountEntry } from '@/types/csv';
 const LineStatus = () => {
   useEffect(() => {
     console.log("Line data raw type:", typeof rawLineData);
+    if (typeof rawLineData === 'string') {
+      console.log("Line data raw sample:", rawLineData.substring(0, 100));
+    } else {
+      console.log("Line data is not a string:", rawLineData);
+    }
   }, []);
 
   // Parse the CSV data
