@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -10,7 +11,7 @@ const LineStatus = () => {
   useEffect(() => {
     const fetchLineData = async () => {
       try {
-        const response = await fetch('/data/line_counts.csv');
+        const response = await fetch('/data/line_counts_last_7_days.csv');
         const csvText = await response.text();
         const parsedData = parseCSV<LineCountEntry>(csvText);
         setLineData(parsedData);
