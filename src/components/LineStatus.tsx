@@ -86,7 +86,7 @@ const LineStatus = () => {
             </div>
           ))}
         </div>
-        <div className="flex gap-4 mt-4 text-xs">
+        <div className="flex justify-center gap-4 mt-4 text-xs">
           <div className="flex items-center">
             <div className="w-3 h-3 rounded-full bg-green-500 mr-1"></div>
             Low
