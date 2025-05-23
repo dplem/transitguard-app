@@ -1,13 +1,14 @@
 
-
 import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { parseCSV } from '@/utils/csvParser';
 import { LineCountEntry } from '@/types/csv';
 
 const LineStatus = () => {
   const [lineData, setLineData] = useState<LineCountEntry[]>([]);
+  const [timeFrame, setTimeFrame] = useState('last-7-days');
 
   useEffect(() => {
     const fetchLineData = async () => {
@@ -48,8 +49,20 @@ const LineStatus = () => {
     return (
       <Card>
         <CardHeader className="pb-2">
-          <CardTitle className="text-blue-600">Line Status</CardTitle>
-          <p className="text-sm text-gray-500">Current safety status by transit line</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-blue-600">Line Status</CardTitle>
+              <p className="text-sm text-gray-500">Current safety status by transit line</p>
+            </div>
+            <Select value={timeFrame} onValueChange={setTimeFrame}>
+              <SelectTrigger className="w-[140px]">
+                <SelectValue placeholder="Select time frame" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="last-7-days">Last 7 Days</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </CardHeader>
         <CardContent>
           <p className="text-gray-600">Loading line data...</p>
@@ -61,8 +74,20 @@ const LineStatus = () => {
   return (
     <Card>
       <CardHeader className="pb-2">
-        <CardTitle className="text-blue-600">Line Status</CardTitle>
-        <p className="text-sm text-gray-500">Current safety status by transit line</p>
+        <div className="flex items-center justify-between">
+          <div>
+            <CardTitle className="text-blue-600">Line Status</CardTitle>
+            <p className="text-sm text-gray-500">Current safety status by transit line</p>
+          </div>
+          <Select value={timeFrame} onValueChange={setTimeFrame}>
+            <SelectTrigger className="w-[140px]">
+              <SelectValue placeholder="Select time frame" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="last-7-days">Last 7 Days</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </CardHeader>
       <CardContent>
         <div className="space-y-2">
@@ -108,4 +133,3 @@ const LineStatus = () => {
 };
 
 export default LineStatus;
-
