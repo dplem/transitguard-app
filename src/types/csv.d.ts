@@ -28,3 +28,11 @@ export interface LineCountEntry {
   incident_count: string;
   risk_flag: string;
 }
+
+export interface ClosestStopEntry {
+  closest_station: string;
+  Line: string;
+  location: string;
+  crime_count: string;
+  distance_from_northwestern_km: string;
+}

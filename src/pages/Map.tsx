@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '@/components/Layout';
 import { allTransitPoints, Station } from '@/utils/safetyData';
 import { Button } from '@/components/ui/button';
@@ -7,16 +7,41 @@ import { Input } from '@/components/ui/input';
 import StationInfo from '@/components/StationInfo';
 import SafetyMap from '@/components/SafetyMap';
 import { MapPin, Search } from 'lucide-react';
+import { parseCSV } from '@/utils/csvParser';
+import { ClosestStopEntry } from '@/types/csv';
 
 const Map = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStation, setSelectedStation] = useState<Station | null>(null);
+  const [nearbyStations, setNearbyStations] = useState<ClosestStopEntry[]>([]);
   
   const filteredStations = searchQuery
     ? allTransitPoints.filter(station => 
         station.name.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : [];
+
+  useEffect(() => {
+    const fetchNearbyStations = async () => {
+      try {
+        const response = await fetch('/data/closest_stops.csv');
+        const csvText = await response.text();
+        const parsedData = parseCSV<ClosestStopEntry>(csvText);
+        setNearbyStations(parsedData);
+      } catch (error) {
+        console.error('Error fetching nearby stations data:', error);
+      }
+    };
+
+    fetchNearbyStations();
+  }, []);
+
+  const getSafetyColor = (crimeCount: string) => {
+    const count = parseInt(crimeCount);
+    if (count === 0) return 'bg-safety-safe';
+    if (count <= 5) return 'bg-yellow-400';
+    return 'bg-orange-500';
+  };
   
   return (
     <Layout title="Safety Map" showBackButton={selectedStation !== null} onBack={() => setSelectedStation(null)}>
@@ -68,27 +93,24 @@ const Map = () => {
           
           <div className="space-y-2 mt-4">
             <h3 className="text-sm font-medium">Nearby Stations</h3>
-            {allTransitPoints.slice(0, 5).map(station => (
+            {nearbyStations.map((station, index) => (
               <div 
-                key={station.id}
-                className="bg-white rounded-lg border p-3 flex items-center justify-between cursor-pointer"
-                onClick={() => setSelectedStation(station)}
+                key={index}
+                className="bg-white rounded-lg border p-3 flex items-center justify-between"
               >
                 <div>
-                  <h3 className="font-medium">{station.name}</h3>
+                  <h3 className="font-medium">{station.closest_station}</h3>
                   <div className="flex items-center gap-2">
                     <p className="text-xs text-gray-500">
-                      {station.type === 'train' ? 'L Station' : 'Bus Stop'}
+                      {station.Line}
                     </p>
                     <p className="text-xs text-gray-500">
-                      {station.incidents} incidents
+                      {station.crime_count} incidents
                     </p>
                   </div>
                 </div>
                 <div className={`
-                  ${station.safetyLevel === 'safe' ? 'bg-safety-safe' : 
-                    station.safetyLevel === 'warning' ? 'bg-yellow-400' : 
-                    'bg-orange-500'} 
+                  ${getSafetyColor(station.crime_count)} 
                   w-3 h-3 rounded-full`}
                 ></div>
               </div>
