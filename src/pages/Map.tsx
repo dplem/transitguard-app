@@ -91,7 +91,7 @@ const Map = () => {
             </div>
           )}
           
-          <div className="space-y-2 mt-4">
+          <div className="space-y-2 mt-4 pb-6">
             <h3 className="text-sm font-medium">Nearby Stations</h3>
             {nearbyStations.map((station, index) => (
               <div 
