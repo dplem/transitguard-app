@@ -1,9 +1,9 @@
+
 import React, { useState, useEffect } from 'react';
 import Layout from '@/components/Layout';
 import { allTransitPoints, Station } from '@/utils/safetyData';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import StationInfo from '@/components/StationInfo';
 import SafetyMap from '@/components/SafetyMap';
 import { MapPin, Search } from 'lucide-react';
@@ -91,34 +91,30 @@ const Map = () => {
             </div>
           )}
           
-          <div className="mt-4">
-            <h3 className="text-sm font-medium mb-2">Nearby Stations</h3>
-            <ScrollArea className="h-64 w-full">
-              <div className="space-y-2 pr-4">
-                {nearbyStations.map((station, index) => (
-                  <div 
-                    key={index}
-                    className="bg-white rounded-lg border p-3 flex items-center justify-between"
-                  >
-                    <div>
-                      <h3 className="font-medium">{station.closest_station}</h3>
-                      <div className="flex items-center gap-2">
-                        <p className="text-xs text-gray-500">
-                          {station.Line}
-                        </p>
-                        <p className="text-xs text-gray-500">
-                          {station.crime_count} incidents
-                        </p>
-                      </div>
-                    </div>
-                    <div className={`
-                      ${getSafetyColor(station.crime_count)} 
-                      w-3 h-3 rounded-full`}
-                    ></div>
+          <div className="space-y-2 mt-4">
+            <h3 className="text-sm font-medium">Nearby Stations</h3>
+            {nearbyStations.map((station, index) => (
+              <div 
+                key={index}
+                className="bg-white rounded-lg border p-3 flex items-center justify-between"
+              >
+                <div>
+                  <h3 className="font-medium">{station.closest_station}</h3>
+                  <div className="flex items-center gap-2">
+                    <p className="text-xs text-gray-500">
+                      {station.Line}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {station.crime_count} incidents
+                    </p>
                   </div>
-                ))}
+                </div>
+                <div className={`
+                  ${getSafetyColor(station.crime_count)} 
+                  w-3 h-3 rounded-full`}
+                ></div>
               </div>
-            </ScrollArea>
+            ))}
           </div>
         </>
       )}
