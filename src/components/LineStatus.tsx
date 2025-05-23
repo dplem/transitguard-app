@@ -1,4 +1,5 @@
 
+
 import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -88,17 +89,17 @@ const LineStatus = () => {
         <div className="flex gap-4 mt-4 text-xs">
           <div className="flex items-center">
             <div className="w-3 h-3 rounded-full bg-green-500 mr-1"></div>
-            Low (&lt;50 incidents)
+            Low
           </div>
           
           <div className="flex items-center">
             <div className="w-3 h-3 rounded-full bg-orange-500 mr-1"></div>
-            Medium (50-100 incidents)
+            Medium
           </div>
           
           <div className="flex items-center">
             <div className="w-3 h-3 rounded-full bg-red-500 mr-1"></div>
-            High (&gt;100 incidents)
+            High
           </div>
         </div>
       </CardContent>
@@ -107,3 +108,4 @@ const LineStatus = () => {
 };
 
 export default LineStatus;
+
