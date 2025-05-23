@@ -56,8 +56,8 @@ const Map = () => {
                     </div>
                     <div className={`
                       ${station.safetyLevel === 'safe' ? 'bg-safety-safe' : 
-                        station.safetyLevel === 'warning' ? 'bg-safety-warning' : 
-                        'bg-safety-danger'} 
+                        station.safetyLevel === 'warning' ? 'bg-yellow-400' : 
+                        'bg-orange-500'} 
                       w-3 h-3 rounded-full`}
                     ></div>
                   </div>
@@ -87,8 +87,8 @@ const Map = () => {
                 </div>
                 <div className={`
                   ${station.safetyLevel === 'safe' ? 'bg-safety-safe' : 
-                    station.safetyLevel === 'warning' ? 'bg-safety-warning' : 
-                    'bg-safety-danger'} 
+                    station.safetyLevel === 'warning' ? 'bg-yellow-400' : 
+                    'bg-orange-500'} 
                   w-3 h-3 rounded-full`}
                 ></div>
               </div>

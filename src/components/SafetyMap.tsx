@@ -85,11 +85,11 @@ const SafetyMap = () => {
             <span className="text-sm">Safe Areas</span>
           </div>
           <div className="flex items-center">
-            <span className="w-3 h-3 rounded-full bg-safety-warning mr-2"></span>
+            <span className="w-3 h-3 rounded-full bg-yellow-400 mr-2"></span>
             <span className="text-sm">Caution Areas</span>
           </div>
           <div className="flex items-center">
-            <span className="w-3 h-3 rounded-full bg-safety-danger mr-2"></span>
+            <span className="w-3 h-3 rounded-full bg-orange-500 mr-2"></span>
             <span className="text-sm">High Risk Areas</span>
           </div>
         </div>
