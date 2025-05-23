@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Layout from '@/components/Layout';
 import { allTransitPoints, Station } from '@/utils/safetyData';
@@ -91,7 +90,7 @@ const Map = () => {
             </div>
           )}
           
-          <div className="space-y-2 mt-4 pb-6">
+          <div className="space-y-2 mt-4 pb-20">
             <h3 className="text-sm font-medium">Nearby Stations</h3>
             {nearbyStations.map((station, index) => (
               <div 
