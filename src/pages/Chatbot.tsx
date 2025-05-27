@@ -3,13 +3,15 @@ import React, { useState } from 'react';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { MessageSquare, Send } from 'lucide-react';
+import { MessageSquare, Send, Loader2 } from 'lucide-react';
+import { queryTransitGuardAPI } from '@/services/chatbotService';
 
 const Chatbot = () => {
   const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>([
     { text: "Hello! I'm TransitGuard's assistant. How can I help you with transit safety today?", isUser: false }
   ]);
   const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const examplePrompts = [
     "What are the stations near me?",
@@ -18,28 +20,30 @@ const Chatbot = () => {
     "What is the safest line in the last 7 days?"
   ];
 
-  const handleSendMessage = (messageText?: string) => {
+  const handleSendMessage = async (messageText?: string) => {
     const messageToSend = messageText || input;
-    if (messageToSend.trim() === '') return;
+    if (messageToSend.trim() === '' || isLoading) return;
     
     // Add user message
     setMessages(prev => [...prev, { text: messageToSend, isUser: true }]);
-    
-    // Simulate bot response
-    setTimeout(() => {
-      const botResponses = [
-        "I can help you find information about safe transit routes.",
-        "Would you like to see safety statistics for specific stations?",
-        "I can show you safety predictions for your commute.",
-        "Need to report an incident? I can help you with that.",
-        "The safest time to travel through downtown stations is typically between 7am-10am."
-      ];
-      
-      const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
-      setMessages(prev => [...prev, { text: randomResponse, isUser: false }]);
-    }, 1000);
-    
     setInput('');
+    setIsLoading(true);
+    
+    try {
+      // Query the real API
+      const response = await queryTransitGuardAPI(messageToSend);
+      
+      // Add bot response
+      setMessages(prev => [...prev, { text: response, isUser: false }]);
+    } catch (error) {
+      console.error('Error getting response:', error);
+      setMessages(prev => [...prev, { 
+        text: 'I apologize, but I encountered an error processing your request. Please try again.', 
+        isUser: false 
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handlePromptClick = (prompt: string) => {
@@ -67,14 +71,24 @@ const Chatbot = () => {
             </div>
           ))}
           
-          {messages.length === 1 && (
+          {isLoading && (
+            <div className="flex justify-start">
+              <div className="bg-gray-200 text-gray-800 rounded-lg rounded-tl-none p-3 flex items-center gap-2">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                <span>Thinking...</span>
+              </div>
+            </div>
+          )}
+          
+          {messages.length === 1 && !isLoading && (
             <div className="space-y-2">
               <p className="text-sm text-gray-600 mb-3">Try these example questions:</p>
               {examplePrompts.map((prompt, index) => (
                 <button
                   key={index}
                   onClick={() => handlePromptClick(prompt)}
-                  className="block w-full text-left p-3 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 text-blue-700 text-sm transition-colors"
+                  disabled={isLoading}
+                  className="block w-full text-left p-3 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 text-blue-700 text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {prompt}
                 </button>
@@ -89,11 +103,20 @@ const Chatbot = () => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about transit safety..."
-              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+              onKeyPress={(e) => e.key === 'Enter' && !isLoading && handleSendMessage()}
               className="flex-grow"
+              disabled={isLoading}
             />
-            <Button onClick={() => handleSendMessage()} size="icon">
-              <Send className="h-5 w-5" />
+            <Button 
+              onClick={() => handleSendMessage()} 
+              size="icon"
+              disabled={isLoading || input.trim() === ''}
+            >
+              {isLoading ? (
+                <Loader2 className="h-5 w-5 animate-spin" />
+              ) : (
+                <Send className="h-5 w-5" />
+              )}
             </Button>
           </div>
         </div>
