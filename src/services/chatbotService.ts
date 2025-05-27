@@ -106,6 +106,8 @@ export const queryTransitGuardAPI = async (question: string): Promise<string> =>
 
     if (!response.ok) {
       console.log('API request failed, using hardcoded response');
+      // Add 1 second delay before returning fallback response
+      await new Promise(resolve => setTimeout(resolve, 1000));
       return getHardcodedResponse(question);
     }
 
@@ -116,6 +118,8 @@ export const queryTransitGuardAPI = async (question: string): Promise<string> =>
     
   } catch (error) {
     console.error('Error querying TransitGuard API, falling back to hardcoded responses:', error);
+    // Add 1 second delay before returning fallback response
+    await new Promise(resolve => setTimeout(resolve, 1000));
     return getHardcodedResponse(question);
   }
 };
