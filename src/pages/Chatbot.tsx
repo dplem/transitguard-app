@@ -11,11 +11,19 @@ const Chatbot = () => {
   ]);
   const [input, setInput] = useState('');
 
-  const handleSendMessage = () => {
-    if (input.trim() === '') return;
+  const examplePrompts = [
+    "What are the stations near me?",
+    "What are the total number of crimes today?",
+    "What are the total number of traffic accidents today?",
+    "What is the safest line in the last 7 days?"
+  ];
+
+  const handleSendMessage = (messageText?: string) => {
+    const messageToSend = messageText || input;
+    if (messageToSend.trim() === '') return;
     
     // Add user message
-    setMessages([...messages, { text: input, isUser: true }]);
+    setMessages(prev => [...prev, { text: messageToSend, isUser: true }]);
     
     // Simulate bot response
     setTimeout(() => {
@@ -32,6 +40,10 @@ const Chatbot = () => {
     }, 1000);
     
     setInput('');
+  };
+
+  const handlePromptClick = (prompt: string) => {
+    handleSendMessage(prompt);
   };
 
   return (
@@ -54,6 +66,21 @@ const Chatbot = () => {
               </div>
             </div>
           ))}
+          
+          {messages.length === 1 && (
+            <div className="space-y-2">
+              <p className="text-sm text-gray-600 mb-3">Try these example questions:</p>
+              {examplePrompts.map((prompt, index) => (
+                <button
+                  key={index}
+                  onClick={() => handlePromptClick(prompt)}
+                  className="block w-full text-left p-3 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 text-blue-700 text-sm transition-colors"
+                >
+                  {prompt}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
         
         <div className="border-t p-4 bg-white">
@@ -65,7 +92,7 @@ const Chatbot = () => {
               onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
               className="flex-grow"
             />
-            <Button onClick={handleSendMessage} size="icon">
+            <Button onClick={() => handleSendMessage()} size="icon">
               <Send className="h-5 w-5" />
             </Button>
           </div>
