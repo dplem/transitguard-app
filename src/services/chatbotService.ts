@@ -1,4 +1,3 @@
-
 // Simple text embedding using a basic approach
 // In a production environment, you'd want to use a proper embedding service
 const generateSimpleEmbedding = (text: string): number[] => {
@@ -25,8 +24,25 @@ const generateSimpleEmbedding = (text: string): number[] => {
 const getHardcodedResponse = (question: string): string => {
   const lowerQuestion = question.toLowerCase();
   
-  // Station-related queries
-  if (lowerQuestion.includes('stations near me') || lowerQuestion.includes('nearby stations')) {
+  // Specific question responses
+  if (lowerQuestion.includes('stations near me') || lowerQuestion.includes('what are the stations near me')) {
+    return "The stations nearest to your current location are: Noyes, Foster, Central, and Davis";
+  }
+  
+  if (lowerQuestion.includes('total number of crimes today') || lowerQuestion.includes('what are the total number of crimes today')) {
+    return "The total number of crimes today on Chicago Transit are 13.";
+  }
+  
+  if (lowerQuestion.includes('total number of traffic accidents today') || lowerQuestion.includes('what are the total number of traffic accidents today')) {
+    return "The total number of traffic accidents in Chicago today is 365.";
+  }
+  
+  if (lowerQuestion.includes('safest line in the last 7 days') || lowerQuestion.includes('what is the safest line in the last 7 days')) {
+    return "The safest line in the last 7 days is Purple and Yellow with 1 incidents.";
+  }
+  
+  // General station-related queries
+  if (lowerQuestion.includes('nearby stations')) {
     return "Based on your location, I recommend checking high-traffic transfer points which tend to have better security coverage. Popular downtown stations include Lake/State, Clark/Lake, and O'Hare Airport. These locations have frequent CTA staff presence but also higher incident reports due to volume.";
   }
   
